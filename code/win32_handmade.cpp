@@ -6,22 +6,50 @@
 
 // TODO(jungyoun.la): This is global for now.
 global_variable bool g_running = false;
+global_variable BITMAPINFO g_bitmapInfo;
+global_variable void *g_bitmapMemory;
+global_variable HBITMAP g_bitmapHandle;
+global_variable HDC g_bitmapDeviceContext;
 
-internal void ResizeDIBSection(int width, int height)
+internal void Win32ResizeDIBSection(int width, int height)
 {
+    if (g_bitmapHandle)
+    {
+        DeleteObject(g_bitmapHandle);
+    }
 
+    if (g_bitmapDeviceContext != 0)
+    {
+        g_bitmapDeviceContext = CreateCompatibleDC(0);
+    }
+
+    g_bitmapInfo.bmiHeader.biSize = sizeof(g_bitmapInfo.bmiHeader);
+    g_bitmapInfo.bmiHeader.biWidth = width;
+    g_bitmapInfo.bmiHeader.biHeight = height;
+    g_bitmapInfo.bmiHeader.biPlanes = 1;
+    g_bitmapInfo.bmiHeader.biBitCount = 32;
+    g_bitmapInfo.bmiHeader.biCompression = BI_RGB;
+    /*g_bitmapInfo.bmiHeader.biSizeImage = 0;
+    g_bitmapInfo.bmiHeader.biXPelsPerMeter = 0;
+    g_bitmapInfo.bmiHeader.biYPelsPerMeter = 0;
+    g_bitmapInfo.bmiHeader.biClrUsed = 0;
+    g_bitmapInfo.bmiHeader.biClrImportant = 0;*/
+
+    g_bitmapHandle = CreateDIBSection(g_bitmapDeviceContext,
+                                      &g_bitmapInfo,
+                                      DIB_RGB_COLORS,
+                                      &g_bitmapMemory,
+                                      0, 0);
 }
 
-internal void Win32UpdateWindow(HWND hWnd, int x, int y, int width, int height)
+internal void Win32UpdateWindow(HDC deviceContext, int x, int y, int width, int height)
 {
-    HBITMAP CreateDIBSection(
-  _In_   HDC        hdc,
-  _In_   const BITMAPINFO *pbmi,
-  _In_   UINT       iUsage,
-  _Out_  VOID       **ppvBits,
-  _In_   HANDLE     hSection,
-  _In_   DWORD      dwOffset
-);
+    StretchDIBits(deviceContext, 
+                  x, y, width, height,
+                  x, y, width, height,
+                  g_bitmapMemory,
+                  &g_bitmapInfo,
+                  DIB_RGB_COLORS, SRCCOPY);
 }
 
 LRESULT CALLBACK MainWindowCallback(_In_ HWND   hWnd,
@@ -38,7 +66,7 @@ LRESULT CALLBACK MainWindowCallback(_In_ HWND   hWnd,
             GetClientRect(hWnd, &clientRect);
             int width = clientRect.right - clientRect.left;
             int height = clientRect.bottom - clientRect.top;
-            ResizeDIBSection(width, height);
+            Win32ResizeDIBSection(width, height);
             OutputDebugStringA("WM_SIZE\n");
             break;  
         } 
@@ -71,7 +99,7 @@ LRESULT CALLBACK MainWindowCallback(_In_ HWND   hWnd,
             int y = paint.rcPaint.top;
             int width = paint.rcPaint.right - paint.rcPaint.left;
             int height = paint.rcPaint.bottom - paint.rcPaint.top;
-            Win32UpdateWindow(hWnd, x, y, width, height);
+            Win32UpdateWindow(deviceContext, x, y, width, height);
             EndPaint(hWnd, &paint);
             break;
         }

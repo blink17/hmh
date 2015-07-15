@@ -11,7 +11,7 @@ global_variable void *g_bitmapMemory;
 global_variable HBITMAP g_bitmapHandle;
 global_variable HDC g_bitmapDeviceContext;
 
-internal void Win32ResizeDIBSection(int width, int height)
+internal void Win32ResizeDIBSection(HWND hWnd, int width, int height)
 {
     if (g_bitmapHandle)
     {
@@ -20,7 +20,9 @@ internal void Win32ResizeDIBSection(int width, int height)
 
     if (g_bitmapDeviceContext != 0)
     {
-        g_bitmapDeviceContext = CreateCompatibleDC(0);
+        // GetDC()�� �ص��ɰŰ��� ����??
+        g_bitmapDeviceContext = GetDC(hWnd);
+        //g_bitmapDeviceContext = CreateCompatibleDC(0);
     }
 
     g_bitmapInfo.bmiHeader.biSize = sizeof(g_bitmapInfo.bmiHeader);
@@ -66,8 +68,7 @@ LRESULT CALLBACK MainWindowCallback(_In_ HWND   hWnd,
             GetClientRect(hWnd, &clientRect);
             int width = clientRect.right - clientRect.left;
             int height = clientRect.bottom - clientRect.top;
-            Win32ResizeDIBSection(width, height);
-            OutputDebugStringA("WM_SIZE\n");
+            Win32ResizeDIBSection(hWnd, width, height);
             break;  
         } 
         

@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 
 #define internal static
 #define local_persist static
@@ -13,14 +13,13 @@ global_variable HDC g_bitmapDeviceContext;
 
 internal void Win32ResizeDIBSection(HWND hWnd, int width, int height)
 {
-    if (g_bitmapHandle)
+    if (g_bitmapHandle != nullptr)
     {
         DeleteObject(g_bitmapHandle);
     }
 
-    if (g_bitmapDeviceContext != 0)
+    if (g_bitmapDeviceContext == nullptr)
     {
-        // GetDC()�� �ص��ɰŰ��� ����??
         g_bitmapDeviceContext = GetDC(hWnd);
         //g_bitmapDeviceContext = CreateCompatibleDC(0);
     }
@@ -69,28 +68,24 @@ LRESULT CALLBACK MainWindowCallback(_In_ HWND   hWnd,
             int width = clientRect.right - clientRect.left;
             int height = clientRect.bottom - clientRect.top;
             Win32ResizeDIBSection(hWnd, width, height);
-            break;  
-        } 
+        } break;
         
         case WM_CLOSE:
         {
             // TODO(jungyoun.la): Handle this with a message to the user?
             g_running = false;
-            break;  
-        } 
+        } break;
 
         case WM_DESTROY:
         {
             // TODO(jungyoun.la): Handle this as an error - recreate window?
             g_running = false;
-            break;   
-        }
+        } break;
         
         case WM_ACTIVATEAPP:
         {
             OutputDebugStringA("WM_ACTIVATEAPP\n");
-            break;   
-        }
+        } break;   
 
         case WM_PAINT:
         {
@@ -102,15 +97,13 @@ LRESULT CALLBACK MainWindowCallback(_In_ HWND   hWnd,
             int height = paint.rcPaint.bottom - paint.rcPaint.top;
             Win32UpdateWindow(deviceContext, x, y, width, height);
             EndPaint(hWnd, &paint);
-            break;
-        }
+        } break;
 
         default:
         {
             //OutputDebugStringA("default\n");
             result = DefWindowProc(hWnd, uMsg, wParam, lParam);
-            break;
-        }
+        } break;
     }
     return result;
 }
@@ -130,50 +123,48 @@ int CALLBACK WinMain(_In_ HINSTANCE hInstance,
 	//WindowClass.lpszMenuName;
 	windowClass.lpszClassName = "HandmadeHeroWindowClass";
 
-    if (RegisterClass(&windowClass))
+    if (!RegisterClass(&windowClass))
     {
-        HWND windowHandle = CreateWindowExA(
-            0,
-            windowClass.lpszClassName,
-            "Handmade Hero",
-            WS_OVERLAPPEDWINDOW|WS_VISIBLE,
-            CW_USEDEFAULT,
-            CW_USEDEFAULT,
-            CW_USEDEFAULT,
-            CW_USEDEFAULT,
-            0,
-            0,
-            hInstance,
-            0);
+        // TODO(jungyoun.la): Logging
+        return 0;
+    }
 
-        if (windowHandle)
+    HWND windowHandle = CreateWindowExA(
+        0,
+        windowClass.lpszClassName,
+        "Handmade Hero",
+        WS_OVERLAPPEDWINDOW | WS_VISIBLE,
+        CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        0,
+        0,
+        hInstance,
+        0);
+
+    if (!windowHandle)
+    {
+        // TODO(jungyoun.la): Logging
+        return 0;
+    }
+
+    g_running = true;
+    MSG message;
+    bool messageResult;
+    while (g_running)
+    {
+        messageResult = GetMessageA(&message, 0, 0, 0);
+        if (messageResult == true)
         {
-            g_running = true;
-            MSG message;
-            bool messageResult;
-            while (g_running)
-            {
-                messageResult = GetMessageA(&message, 0, 0, 0);
-                if (messageResult == true)
-                {
-                    TranslateMessage(&message);
-                    DispatchMessageA(&message);
-                }
-                else
-                {
-                    break;
-                }
-
-            }
+            TranslateMessage(&message);
+            DispatchMessageA(&message);
         }
         else
         {
-            // TODO(jungyoun.la): Logging
+            break;
         }
-    }
-    else
-    {
-        // TODO(jungyoun.la): Logging
+
     }
 
 	return 0;

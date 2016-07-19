@@ -146,9 +146,12 @@ LRESULT CALLBACK MainWindowCallback(_In_ HWND   _HWnd,
         {
             PAINTSTRUCT paint;
             HDC deviceContext = BeginPaint(_HWnd, &paint);
-            win32_window_dimension dimension = Win32GetWindowDimension(_HWnd);
-
-            Win32DisplayBufferInWindow(deviceContext, dimension.Width, dimension.Height, &g_backbuffer);
+            {
+                // 아래 두 코드가 없어도 제대로 실행된다. 매 프레임 그리기 때문에
+                // 그러나 BeginPaint(), EndPaint()까지 모든 라인을 실행하지 않으면 화면에 그려지는것이 아무것도 없고 먹통이 되어버린다 왜일까??
+                win32_window_dimension dimension = Win32GetWindowDimension(_HWnd);
+                Win32DisplayBufferInWindow(deviceContext, dimension.Width, dimension.Height, &g_backbuffer);
+            }
             EndPaint(_HWnd, &paint);
         } break;
 
@@ -167,7 +170,7 @@ int CALLBACK WinMain(_In_ HINSTANCE _HInstance,
                      _In_ LPSTR     _LpCmdLine,
                      _In_ int       _NCmdShow)
 {
-	WNDCLASS windowClass = {};
+    WNDCLASS windowClass = {};
 
     Win32ResizeDIBSection(&g_backbuffer, 1280, 720);
 	

@@ -17,3 +17,19 @@ Day 009 - DSound로 사운드 출력하는 부분은 나의 주 관심사가 아
 
 2016.07.27 (수)
 Day 010 - 퍼포먼스 측정법에 대해서 학습. 역시 Q&A는 건너뛰자 ㅋ
+
+2017.03.16 (목)
+// Note
+cl 
+/Zi : 디버깅 정보를 사용합니다.
+/FC : 진단에 전체 경로 이름을 사용합니다.
+
+devenv win32_handmade.exe
+이렇게 하면 비주얼 스튜디오로 디버깅을 시작한다.
+https://msdn.microsoft.com/ko-kr/library/aa291235(v=vs.71).aspx
+
+/misc/shell.bat를 먼저 실행시켜야 작동함.
+
+game_offscreen_buffer Buffer = {}; // 이렇게 초기화하면 스트럭쳐의 모든 값이 null로 채워진다.
+
+// Day 011 완료

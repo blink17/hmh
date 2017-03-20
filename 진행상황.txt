@@ -33,3 +33,16 @@ https://msdn.microsoft.com/ko-kr/library/aa291235(v=vs.71).aspx
 game_offscreen_buffer Buffer = {}; // 이렇게 초기화하면 스트럭쳐의 모든 값이 null로 채워진다.
 
 // Day 011 완료
+
+2017.03.20 (월)
+// Note
+game output sound 를 공통 코드로 빼는 작업 진행.
+
+VirtualAlloc
+https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=KO-KR&k=k(MEMORYAPI%2FVirtualAlloc);k(VirtualAlloc);k(DevLang-C%2B%2B);k(TargetOS-Windows)&rd=true
+http://3dmpengines.tistory.com/1408
+버추어 어드레스 공간에서 할당되는 malloc은 "확정" 상태만 있다면 virtualAlloc은 "예약" 상태가 추가로 있는 메모리 할당 함수이다.
+이 "예약"만 한 상태에서는 물리적 메모리가 전혀 소모되지 않고, 오직 "확정"일때만 실제로 할당된다.
+=> 그러니깐 예약(Reserve)만 하고 확정(Commit)하지 않으면, 가상 메모리에서는 메모리를 할당하지만 실제 물려있는 물리적 메모리에는 할당하지 않는다.
+
+// Day 012 완료

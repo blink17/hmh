@@ -23,6 +23,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\code\handmade.h" />
+    <ClInclude Include="..\..\code\handmade_intrinsics.h" />
+    <ClInclude Include="..\..\code\handmade_platform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />

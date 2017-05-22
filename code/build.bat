@@ -1,6 +1,6 @@
 @echo off
 
-set CommonCompilerFlags=-MTd -nologo -Gm- -GR- -EHa- -Od -Oi -WX -W4 -wd4201 -wd4100 -wd4189 -wd4505 -DHANDMADE_INTERNAL=1 -DHANDMADE_SLOW=1 -DHANDMADE_WIN32=1 -FC -Z7
+set CommonCompilerFlags=-MTd -nologo -fp:fast -Gm- -GR- -EHa- -Od -Oi -WX -W4 -wd4201 -wd4100 -wd4189 -wd4505 -DHANDMADE_INTERNAL=1 -DHANDMADE_SLOW=1 -DHANDMADE_WIN32=1 -FC -Z7
 set CommonLinkerFlags= -incremental:no -opt:ref user32.lib gdi32.lib winmm.lib
 
 REM TODO - can we just build noth with one exe?
@@ -13,8 +13,10 @@ REM cl %CommonCompilerFlags% ..\codewin32_handmade.cpp /link -subsystem:windows,
 
 REM 64-bit build
 del *.pdb > NUL 2> NUL
-REM Optimization switches /O2 /Oi /fp:fast
-cl %CommonCompilerFlags% ..\code\handmade.cpp -Fmhandmade.map -LD /link -incremental:no -opt:ref -PDB:handmade_%random%.pdb -EXPORT:GameGetSoundSamples -EXPORT:GameUpdateAndRender /EXPORT:GameUpdateAndRender
+REM Optimization switches /O2
+echo WAITING FOR PDB > lock.tmp
+cl %CommonCompilerFlags% ..\code\handmade.cpp -Fmhandmade.map -LD /link -incremental:no -opt:ref -PDB:handmade_%random%.pdb -EXPORT:GameGetSoundSamples -EXPORT:GameUpdateAndRender
+del lock.tmp
 cl %CommonCompilerFlags% ..\code\win32_handmade.cpp -Fmwin32_handmade.map /link %CommonLinkerFlags%
 popd
 
@@ -33,6 +35,7 @@ goto comment
 -GR- 언어 > 런타임 형식 정보 사용 : 런타임에 C++ 개체의 형식(런타임 형식 정보)를 검사하는 코드를 추가한다. -> 아니요
 -wd4201 -wd4100 -wd4189 고급 > 특정 경고 사용안함
 -FC 진단 메시지에 전체 경로를 사용
+-fp:fast 코드생성 > 부동 소수점 모델 : 부동 소수점 모델을 설정한다.
 
 
 [링커]

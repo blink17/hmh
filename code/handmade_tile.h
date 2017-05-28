@@ -7,6 +7,7 @@
    $Notice: (C) Copyright 2014 by Molly Rocket, Inc. All Rights Reserved. $
    ======================================================================== */
 
+// TODO(casey): Replace this with a v3 once we get to v3
 struct tile_map_difference
 {
     v2 dXY;
@@ -24,7 +25,7 @@ struct tile_map_position
     uint32 AbsTileZ;
 
     // TODO(casey): These are the offsets from the tile center
-    v2 Offset;
+    v2 Offset_;
 };
 
 struct tile_chunk_position

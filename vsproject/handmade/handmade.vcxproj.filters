@@ -18,7 +18,16 @@
     <ClCompile Include="..\..\code\handmade.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\code\handmade_tile.cpp">
+    <ClCompile Include="..\..\code\handmade_world.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\handmade_sim_region.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\handmade_entity.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\code\handmade_render_group.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,13 +41,22 @@
     <ClInclude Include="..\..\code\handmade_intrinsics.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\code\handmade_tile.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\code\handmade_random.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="..\..\code\handmade_math.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\handmade_world.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\handmade_sim_region.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\handmade_entity.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\code\handmade_render_group.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

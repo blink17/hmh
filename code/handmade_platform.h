@@ -15,7 +15,7 @@
     1 - Build for developer only
 
   HANDMADE_SLOW:
-    0 - Not slow code allowed!!
+    0 - Not slow code allowed!
     1 - Slow code welcome.
 */
 
@@ -55,6 +55,8 @@ extern "C" {
 //
 #include <stdint.h>
 #include <stddef.h>
+#include <limits.h>
+#include <float.h>
 
 typedef int8_t int8;
 typedef int16_t int16;
@@ -72,6 +74,8 @@ typedef size_t memory_index;
 typedef float real32;
 typedef double real64;
 
+#define Real32Maximum FLT_MAX
+
 #define internal static
 #define local_persist static
 #define global_variable static
@@ -84,6 +88,9 @@ typedef double real64;
 #else
 #define Assert(Expression)
 #endif
+
+#define InvalidCodePath Assert(!"InvalidCodePath")
+#define InvalidDefaultCase default: {InvalidCodePath;} break;
 
 #define Kilobytes(Value) ((Value)*1024LL)
 #define Megabytes(Value) (Kilobytes(Value)*1024LL)
@@ -141,14 +148,14 @@ typedef DEBUG_PLATFORM_WRITE_ENTIRE_FILE(debug_platform_write_entire_file);
 // FOUR THINGS - timing, controller/keyboard input, bitmap buffer to use, sound buffer to use
 
 // TODO(casey): In the future, rendering _specifically_ will become a three-tiered abstraction!!!
+#define BITMAP_BYTES_PER_PIXEL 4
 typedef struct game_offscreen_buffer
 {
-    // NOTE(casey): Pixels are alwasy 32-bits wide, Memory Order BB GG RR XX
+    // NOTE(casey): Pixels are always 32-bits wide, Memory Order BB GG RR XX
     void *Memory;
     int Width;
     int Height;
     int Pitch;
-    int BytesPerPixel;
 } game_offscreen_buffer;
 
 typedef struct game_sound_output_buffer
@@ -204,6 +211,7 @@ typedef struct game_input
     game_button_state MouseButtons[5];
     int32 MouseX, MouseY, MouseZ;
 
+    bool32 ExecutableReloaded;
     real32 dtForFrame;
 
     game_controller_input Controllers[5];

@@ -234,7 +234,7 @@ Win32LoadGameCode(char *SourceDLLName, char *TempDLLName, char *LockFileName)
     win32_game_code Result = {};
 
     WIN32_FILE_ATTRIBUTE_DATA Ignored;
-    if (!GetFileAttributesEx(LockFileName, GetFileExInfoStandard, &Ignored))
+    if(!GetFileAttributesEx(LockFileName, GetFileExInfoStandard, &Ignored))
     {
         Result.DLLLastWriteTime = Win32GetLastWriteTime(SourceDLLName);
 
@@ -447,7 +447,7 @@ Win32DisplayBufferInWindow(win32_offscreen_buffer *Buffer,
 {
     // TODO(casey): Centering / black bars?
 
-    if ((WindowWidth >= Buffer->Width*2) &&
+    if((WindowWidth >= Buffer->Width*2) &&
         (WindowHeight >= Buffer->Height*2))
     {
         StretchDIBits(DeviceContext,
@@ -497,7 +497,7 @@ Win32MainWindowCallback(HWND Window,
 
         case WM_SETCURSOR:
         {
-            if (DEBUGGlobalShowCursor)
+            if(DEBUGGlobalShowCursor)
             {
                 Result = DefWindowProcA(Window, Message, WParam, LParam);
             }
@@ -776,10 +776,10 @@ ToggleFullscreen(HWND Window)
     // http://blogs.msdn.com/b/oldnewthing/archive/2010/04/12/9994016.aspx
 
     DWORD Style = GetWindowLong(Window, GWL_STYLE);
-    if (Style & WS_OVERLAPPEDWINDOW)
+    if(Style & WS_OVERLAPPEDWINDOW)
     {
         MONITORINFO MonitorInfo = {sizeof(MonitorInfo)};
-        if (GetWindowPlacement(Window, &GlobalWindowPosition) &&
+        if(GetWindowPlacement(Window, &GlobalWindowPosition) &&
             GetMonitorInfo(MonitorFromWindow(Window, MONITOR_DEFAULTTOPRIMARY), &MonitorInfo))
         {
             SetWindowLong(Window, GWL_STYLE, Style & ~WS_OVERLAPPEDWINDOW);
@@ -906,7 +906,7 @@ Win32ProcessPendingMessages(win32_state *State, game_controller_input *KeyboardC
                         }
                     }
 #endif
-                    if (IsDown)
+                    if(IsDown)
                     {
                         bool32 AltKeyWasDown = (Message.lParam & (1 << 29));
                         if((VKCode == VK_F4) && AltKeyWasDown)
@@ -1178,7 +1178,7 @@ WinMain(HINSTANCE Instance,
 #endif
             
             game_memory GameMemory = {};
-            GameMemory.PermanentStorageSize = Megabytes(64);
+            GameMemory.PermanentStorageSize = Megabytes(256);
             GameMemory.TransientStorageSize = Gigabytes(1);
             GameMemory.DEBUGPlatformFreeFileMemory = DEBUGPlatformFreeFileMemory;
             GameMemory.DEBUGPlatformReadEntireFile = DEBUGPlatformReadEntireFile;
@@ -1255,13 +1255,12 @@ WinMain(HINSTANCE Instance,
                 win32_game_code Game = Win32LoadGameCode(SourceGameCodeDLLFullPath,
                                                          TempGameCodeDLLFullPath,
                                                          GameCodeLockFullPath);
-                uint32 LoadCounter = 0;
-
                 uint64 LastCycleCount = __rdtsc();
                 while(GlobalRunning)
                 {
                     NewInput->dtForFrame = TargetSecondsPerFrame;
                     
+                    NewInput->ExecutableReloaded = false;
                     FILETIME NewDLLWriteTime = Win32GetLastWriteTime(SourceGameCodeDLLFullPath);
                     if(CompareFileTime(&NewDLLWriteTime, &Game.DLLLastWriteTime) != 0)
                     {
@@ -1269,7 +1268,7 @@ WinMain(HINSTANCE Instance,
                         Game = Win32LoadGameCode(SourceGameCodeDLLFullPath,
                                                  TempGameCodeDLLFullPath,
                                                  GameCodeLockFullPath);
-                        LoadCounter = 0;
+                        NewInput->ExecutableReloaded = true;
                     }
 
                     // TODO(casey): Zeroing macro
@@ -1430,7 +1429,6 @@ WinMain(HINSTANCE Instance,
                         Buffer.Width = GlobalBackbuffer.Width; 
                         Buffer.Height = GlobalBackbuffer.Height;
                         Buffer.Pitch = GlobalBackbuffer.Pitch;
-                        Buffer.BytesPerPixel = GlobalBackbuffer.BytesPerPixel;
 
                         if(Win32State.InputRecordingIndex)
                         {

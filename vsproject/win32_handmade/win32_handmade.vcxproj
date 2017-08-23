@@ -98,7 +98,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <DisableSpecificWarnings>4201;4100;4189;4505;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4100;4189;4505;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <UseFullPaths>true</UseFullPaths>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -125,7 +125,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <DisableSpecificWarnings>4201;4100;4189;4505;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4100;4189;4505;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <UseFullPaths>true</UseFullPaths>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -153,7 +153,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <DisableSpecificWarnings>4201;4100;4189;4505;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4100;4189;4505;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <UseFullPaths>true</UseFullPaths>
       <ExceptionHandling>Async</ExceptionHandling>
       <OmitDefaultLibName>false</OmitDefaultLibName>
@@ -181,7 +181,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <DisableSpecificWarnings>4201;4100;4189;4505;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4100;4189;4505;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <UseFullPaths>true</UseFullPaths>
       <ExceptionHandling>Async</ExceptionHandling>
       <OmitDefaultLibName>false</OmitDefaultLibName>

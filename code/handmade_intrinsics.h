@@ -38,7 +38,13 @@ AbsoluteValue(real32 Real32)
 inline uint32
 RotateLeft(uint32 Value, int32 Amount)
 {
+#if COMPILER_MSVC
     uint32 Result = _rotl(Value, Amount);
+#else
+    // TODO(casey): Actually port this to other compiler platforms!
+    Amount &= 31;
+    uint32 Result = ((Value << Amount) | (Value >> (32 - Amount)));
+#endif
 
     return(Result);
 }
@@ -46,7 +52,13 @@ RotateLeft(uint32 Value, int32 Amount)
 inline uint32
 RotateRight(uint32 Value, int32 Amount)
 {
+#if COMPILER_MSVC
     uint32 Result = _rotr(Value, Amount);
+#else
+    // TODO(casey): Actually port this to other compiler platforms!
+    Amount &= 31;
+    uint32 Result = ((Value >> Amount) | (Value << (32 - Amount)));
+#endif
 
     return(Result);
 }
@@ -120,11 +132,11 @@ FindLeastSignificantSetBit(uint32 Value)
 #if COMPILER_MSVC
     Result.Found = _BitScanForward((unsigned long *)&Result.Index, Value);
 #else
-    for (uint32 Test = 0;
-         Test < 32;
-         ++Test)
+    for(uint32 Test = 0;
+        Test < 32;
+        ++Test)
     {
-        if (Value & (1 << Test))
+        if(Value & (1 << Test))
         {
             Result.Index = Test;
             Result.Found = true;

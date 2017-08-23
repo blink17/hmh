@@ -20,7 +20,25 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\code\handmade.cpp" />
-    <ClCompile Include="..\..\code\handmade_tile.cpp">
+    <ClCompile Include="..\..\code\handmade_entity.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\code\handmade_render_group.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\code\handmade_sim_region.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\code\handmade_world.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -29,11 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\code\handmade.h" />
+    <ClInclude Include="..\..\code\handmade_entity.h" />
     <ClInclude Include="..\..\code\handmade_intrinsics.h" />
     <ClInclude Include="..\..\code\handmade_math.h" />
     <ClInclude Include="..\..\code\handmade_platform.h" />
     <ClInclude Include="..\..\code\handmade_random.h" />
-    <ClInclude Include="..\..\code\handmade_tile.h" />
+    <ClInclude Include="..\..\code\handmade_render_group.h" />
+    <ClInclude Include="..\..\code\handmade_sim_region.h" />
+    <ClInclude Include="..\..\code\handmade_world.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
@@ -116,7 +137,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <DisableSpecificWarnings>4201;4100;4189;4505;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4100;4189;4505;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <UseFullPaths>true</UseFullPaths>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -146,7 +167,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <DisableSpecificWarnings>4201;4100;4189;4505;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4100;4189;4505;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <UseFullPaths>true</UseFullPaths>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -177,7 +198,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <DisableSpecificWarnings>4201;4100;4189;4505;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4100;4189;4505;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <UseFullPaths>true</UseFullPaths>
       <ExceptionHandling>Async</ExceptionHandling>
       <OmitDefaultLibName>false</OmitDefaultLibName>
@@ -208,7 +229,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <DisableSpecificWarnings>4201;4100;4189;4505;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4201;4100;4189;4505;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <UseFullPaths>true</UseFullPaths>
       <ExceptionHandling>Async</ExceptionHandling>
       <OmitDefaultLibName>false</OmitDefaultLibName>

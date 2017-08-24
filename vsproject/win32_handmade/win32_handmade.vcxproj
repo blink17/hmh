@@ -104,6 +104,8 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <OmitDefaultLibName>false</OmitDefaultLibName>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Zo %(AdditionalOptions)</AdditionalOptions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <AdditionalDependencies>user32.lib;gdi32.lib;winmm.lib</AdditionalDependencies>
@@ -131,6 +133,8 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <OmitDefaultLibName>false</OmitDefaultLibName>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Zo %(AdditionalOptions)</AdditionalOptions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <AdditionalDependencies>user32.lib;gdi32.lib;winmm.lib</AdditionalDependencies>
@@ -158,6 +162,7 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <OmitDefaultLibName>false</OmitDefaultLibName>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Zo %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -186,6 +191,7 @@
       <ExceptionHandling>Async</ExceptionHandling>
       <OmitDefaultLibName>false</OmitDefaultLibName>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalOptions>/Zo %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
